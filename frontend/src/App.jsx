@@ -1,38 +1,35 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Landing from './pages/Landing';
-import Home from './pages/Home';
-import MealList from './pages/MealList';
-import MealDetail from './pages/MealDetail';
-import AddMeal from './pages/AddMeal';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-function PlaceholderPage({ title }) {
-  return (
-    <div className="flex justify-center items-center h-64 bg-white rounded-3xl border border-gray-100 shadow-sm mt-8">
-      <h1 className="text-3xl font-bold text-gray-900">{title} (Coming Soon)</h1>
-    </div>
-  );
-}
+function App() {
+  const [count, setCount] = useState(0)
 
-export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col font-sans bg-gray-50 text-gray-900">
-        <Navbar />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/meals" element={<MealList />} />
-            <Route path="/meals/:id" element={<MealDetail />} />
-            <Route path="/add-meal" element={<AddMeal />} />
-            <Route path="/ai-query" element={<PlaceholderPage title="AI Query Feature" />} />
-            <Route path="/profile" element={<PlaceholderPage title="User Profile" />} />
-          </Routes>
-        </main>
-        <Footer />
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-    </Router>
-  );
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
+
+export default App

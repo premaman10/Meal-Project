@@ -1,27 +1,24 @@
-import axios from 'axios';
+const API_URL = 'http://localhost:8080/api';
 
-const MEALDB_BASE = 'https://www.themealdb.com/api/json/v1/1';
+export const queryAI = async (query) => {
+  try {
+    const response = await fetch(`${API_URL}/ai/query`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    });
 
-const api = axios.create({
-  baseURL: MEALDB_BASE,
-});
+    if (!response.ok) {
+      throw new Error('AI service failed to respond');
+    }
 
-// Wrapper functions to map TheMealDB responses to what our Frontend expects.
-
-export const getMeals = async () => {
-  // Use search with empty string to get a list of meals
-  const res = await api.get('/search.php?s=');
-  return { data: res.data.meals || [] }; // Landing expects data to be an array
-};
-
-export const getMealById = async (id) => {
-  const res = await api.get(`/lookup.php?i=${id}`);
-  return { data: res.data }; // MealDetail handles `res.data.meals[0]`
-};
-
-export const searchMeals = async (query) => {
-  const res = await api.get(`/search.php?s=${query}`);
-  return { data: res.data.meals || [] }; 
+    return await response.json();
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
+  }
 };
 
 export const getLeastIngredientsMeal = async () => {

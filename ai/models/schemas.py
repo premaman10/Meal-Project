@@ -1,15 +1,45 @@
-# Data schemas for AI models
-from pydantic import BaseModel, Field
-from typing import List, Dict
+from pydantic import BaseModel
+from typing import Optional, List
+from datetime import datetime
 
 
-class MealModel(BaseModel):
-    name: str = Field(..., description="Meal name")
-    calories: int = Field(..., ge=0)
-    ingredientCount: int = Field(..., ge=0)
+class MealData(BaseModel):
+    """Schema for a meal item"""
+    id: Optional[str] = None
+    name: str
+    description: str
+    ingredients: List[str]
+    instructions: str
+    calories: Optional[int] = None
+    cuisine: Optional[str] = None
+    dietary_tags: Optional[List[str]] = None
+    source: str = "user_added"  # Can be 'mealdb', 'user_added', etc.
+    created_at: Optional[datetime] = None
 
 
-class AIResponseModel(BaseModel):
-    type: str = Field(..., description="Detected query type")
-    constraints: Dict = Field(default_factory=dict)
-    meals: List[MealModel]
+class IngestionRequest(BaseModel):
+    """Schema for ingesting a new meal into ChromaDB"""
+    meals: List[MealData]
+    collection_name: str = "meals"
+
+
+class QueryRequest(BaseModel):
+    """Schema for RAG query request"""
+    prompt: str
+    top_k: int = 5
+    collection_name: str = "meals"
+
+
+class MealRetrievalResult(BaseModel):
+    """Schema for meal retrieval results"""
+    meal_name: str
+    description: str
+    relevance_score: float
+    source: str
+
+
+class RAGResponse(BaseModel):
+    """Schema for RAG response"""
+    answer: str
+    retrieved_meals: List[MealRetrievalResult]
+    confidence: float

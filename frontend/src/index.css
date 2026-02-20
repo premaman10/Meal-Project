@@ -1,3 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-swiggy-orange: #fc8019;
+  --color-swiggy-black: #282c3f;
+  --color-swiggy-gray: #686b78;
+  --color-swiggy-light-gray: #f2f2f2;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  @apply bg-white text-[--color-swiggy-black];
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[--color-swiggy-orange] text-white px-6 py-3 font-bold rounded-md hover:opacity-90 transition-all duration-200;
+  }
+
+  .chat-bubble-user {
+    @apply bg-[--color-swiggy-orange] text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] self-end shadow-sm;
+  }
+
+  .chat-bubble-ai {
+    @apply bg-[--color-swiggy-light-gray] text-[--color-swiggy-black] p-4 rounded-2xl rounded-tl-none max-w-[80%] self-start shadow-sm border border-gray-100;
+  }
+}

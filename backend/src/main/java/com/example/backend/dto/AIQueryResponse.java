@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MealIngredientDTO {
-    private String name;
-    private String measure;
+public class AIQueryResponse {
+    private String response;
+    private String originalQuery;
 }

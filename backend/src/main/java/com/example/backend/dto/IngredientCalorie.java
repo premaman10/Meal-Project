@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MealIngredientDTO {
-    private String name;
+public class IngredientCalorie {
+    private String ingredient;
     private String measure;
+    private double calories;
 }

@@ -86,3 +86,4 @@ class ErrorHandler:
             status_code=status_code,
             content=response_data
         )
+
